@@ -2,6 +2,10 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
   </div>
+  <div>
+    <p>game</p>
+    <canvas id="gameCanvas" ref="gameCanvas" width="400" height="400"></canvas>
+  </div>
 </template>
 
 <script lang="ts">
