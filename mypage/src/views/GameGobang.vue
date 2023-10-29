@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from "vue";
-import { Options, Vue } from "vue-class-component";
+import { ref, computed, onMounted } from "vue";
 const goBangCanvas = ref<HTMLCanvasElement>();
 
 const context = computed(() => goBangCanvas.value?.getContext("2d"));
+const boxpix = 10;
+const width = boxpix;
+const height = boxpix;
 
-onMounted(() => {
-  context.value?.fillRect(200, 100, 100, 100);
-});
+onMounted(() => draw());
+const draw = () => {
+  if (context.value === undefined) return;
+  context.value?.fillStyle = "Red";
+  context.value?.fillRect(1, 1, width, height / 2);
+};
 </script>
 <template>
   <div class="GameGobang">
     <h1>五目並べ</h1>
   </div>
   <div>
-    <canvas id="goBangCanvas"></canvas>
+    <canvas ref="goBangCanvas"></canvas>
   </div>
 </template>
 
