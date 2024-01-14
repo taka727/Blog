@@ -10,8 +10,7 @@ const height = boxpix;
 onMounted(() => draw());
 const draw = () => {
   if (context.value === undefined) return;
-  context.value?.fillStyle = 'Red';
-  context.value?.fillRect(1, 1, width, height / 2);
+  context.value?.fillRect(0, 0, width, height / 2);
 };
 </script>
 <template>
