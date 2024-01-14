@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from 'vue';
 const goBangCanvas = ref<HTMLCanvasElement>();
 
-const context = computed(() => goBangCanvas.value?.getContext("2d"));
+const context = computed(() => goBangCanvas.value?.getContext('2d'));
 const boxpix = 10;
 const width = boxpix;
 const height = boxpix;
@@ -10,7 +10,7 @@ const height = boxpix;
 onMounted(() => draw());
 const draw = () => {
   if (context.value === undefined) return;
-  context.value?.fillStyle = "Red";
+  context.value?.fillStyle = 'Red';
   context.value?.fillRect(1, 1, width, height / 2);
 };
 </script>
@@ -28,6 +28,7 @@ h1 {
   color: red;
   margin: 40px 0 0;
 }
+
 canvas {
   width: 400px;
   height: 400px;
