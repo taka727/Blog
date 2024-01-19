@@ -1,16 +1,42 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 const goBangCanvas = ref<HTMLCanvasElement>();
-
 const context = computed(() => goBangCanvas.value?.getContext('2d'));
-const boxpix = 10;
+const boxpix = 20;
 const width = boxpix;
 const height = boxpix;
+const canvasPixel = 400;
+const box = canvasPixel / boxpix;
+const borad = Array.from(new Array(box), () => new Array(box).fill(0));
 
-onMounted(() => draw());
-const draw = () => {
+onMounted(() => setboard());
+const setboard = () => {
   if (context.value === undefined) return;
-  context.value?.fillRect(0, 0, width, height / 2);
+  //draw();
+};
+window.addEventListener('click', (e) => {
+  const x = Math.floor(e.offsetX / boxpix);
+  const y = Math.floor(e.offsetY / boxpix);
+  console.log(e.offsetX, e.offsetY);
+  console.log(x, y);
+  console.log(borad[x][y]);
+  if (borad[y][x]) {
+    borad[y][x] = 0;
+  } else {
+    borad[y][x] = 1;
+  }
+
+  draw();
+});
+const draw = () => {
+  console.log(JSON.stringify(borad));
+  for (let i = 0; i < canvasPixel / boxpix; i++) {
+    for (let j = 0; j < canvasPixel / boxpix; j++) {
+      if (borad[j][i]) {
+        context.value?.fillRect(i * boxpix, j * (boxpix / 2), width, height / 2);
+      }
+    }
+  }
 };
 </script>
 
