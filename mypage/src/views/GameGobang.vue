@@ -12,13 +12,14 @@ const borad = Array.from(new Array(box), () => new Array(box).fill(0));
 onMounted(() => setboard());
 const setboard = () => {
   if (context.value === undefined) return;
-  draw();
+  farstDraw();
 };
 window.addEventListener('click', (e) => {
   const x = Math.floor(e.offsetX / boxpix);
   const y = Math.floor(e.offsetY / boxpix);
-  if (e.offsetX > 400 && e.offsetY > 400) return;
-  if (e.offsetX < 0 && e.offsetY < 0) return;
+  if (e.offsetX > 400 || e.offsetY > 400) return;
+  if (e.offsetX < 0 || e.offsetY < 0) return;
+  console.log(e.offsetX, e.offsetY);
   if (!context.value) return;
   if (borad[y][x]) {
     borad[y][x] = 0;
@@ -36,6 +37,15 @@ const draw = () => {
       } else {
         context.value.fillStyle = 'black';
       }
+      context.value?.fillRect(i * boxpix, j * (boxpix / 2), width, height / 2);
+    }
+  }
+};
+const farstDraw = () => {
+  if (!context.value) return;
+  context.value.fillStyle = 'orange';
+  for (let i = 0; i < canvasPixel / boxpix; i++) {
+    for (let j = 0; j < canvasPixel / boxpix; j++) {
       context.value?.fillRect(i * boxpix, j * (boxpix / 2), width, height / 2);
     }
   }
