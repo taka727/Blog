@@ -12,29 +12,31 @@ const borad = Array.from(new Array(box), () => new Array(box).fill(0));
 onMounted(() => setboard());
 const setboard = () => {
   if (context.value === undefined) return;
-  //draw();
+  draw();
 };
 window.addEventListener('click', (e) => {
   const x = Math.floor(e.offsetX / boxpix);
   const y = Math.floor(e.offsetY / boxpix);
-  console.log(e.offsetX, e.offsetY);
-  console.log(x, y);
-  console.log(borad[x][y]);
+  if (e.offsetX > 400 && e.offsetY > 400) return;
+  if (e.offsetX < 0 && e.offsetY < 0) return;
+  if (!context.value) return;
   if (borad[y][x]) {
     borad[y][x] = 0;
   } else {
     borad[y][x] = 1;
   }
-
   draw();
 });
 const draw = () => {
-  console.log(JSON.stringify(borad));
+  if (!context.value) return;
   for (let i = 0; i < canvasPixel / boxpix; i++) {
     for (let j = 0; j < canvasPixel / boxpix; j++) {
-      if (borad[j][i]) {
-        context.value?.fillRect(i * boxpix, j * (boxpix / 2), width, height / 2);
+      if (borad[j][i] === 1) {
+        context.value.fillStyle = 'white';
+      } else {
+        context.value.fillStyle = 'black';
       }
+      context.value?.fillRect(i * boxpix, j * (boxpix / 2), width, height / 2);
     }
   }
 };
